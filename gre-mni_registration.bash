@@ -60,6 +60,6 @@ test -d imgs || mkdir $_
 # t1->mni
 slicer template/MNI152_T1_1mm_brain.nii.gz warps/t1_2_mni_Warped.nii.gz -a imgs/t1_mni.png
 # gre->t1
-slicer input/T1_MPRAGE_ISO_0006.nii.gz warps/gre_2_t1_affine_Warped.nii.gz -a imgs/gre_t1.png
+slicer bet/t1_bet.nii.gz warps/gre_2_t1_affine_Warped.nii.gz -a imgs/gre_t1.png
 # gre->mni
 slicer template/MNI152_T1_1mm_brain.nii.gz warps/GRE-WarpedMNI.nii.gz -a imgs/gre_mni.png
