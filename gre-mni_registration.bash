@@ -30,7 +30,8 @@ test -d warps || mkdir $_  # make sure dir exists
 wait
 
 # combine transforms
-# TODO: confrim
-antsApplyTransforms -d 3 -r MNI_brain.nii.gz -i input/GRE_R2s.nii.gz \
+# TODO: confrim warp order produces correct output
+test -d out || mkdir $_
+antsApplyTransforms -d 3 -r template/MNI152_T1_1mm_brain.nii.gz -i input/GRE_R2s.nii.gz \
    -t warps/gre_2_t10GenericAffine.mat -t warps/t1_2_mni1InverseWarp.nii.gz \
    -o out/GRE_R2s-mni.nii.gz
