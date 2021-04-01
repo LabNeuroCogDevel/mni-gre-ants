@@ -16,5 +16,4 @@ output of `slicer`
 ![t1mni](imgs/t1_mni.png)
 
 ### GRE -> T1 -> MNI
-NOTE: problem with nonlinear stretching?!
 ![gremni](imgs/gre_mni.png)
