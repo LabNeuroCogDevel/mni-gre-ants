@@ -36,8 +36,30 @@ test -d warps || mkdir $_  # make sure dir exists
 
 wait
 
+
 # combine transforms
 # TODO: confrim warp order produces correct output
 antsApplyTransforms -d 3 -r template/MNI152_T1_1mm_brain.nii.gz -i input/GRE_R2s.nii.gz \
-   -t warps/gre_2_t1_rigid_0GenericAffine.mat -t warps/t1_2_mni_Warp.nii.gz \
+   -t warps/gre_2_t1_rigid_0GenericAffine.mat -t warps/t1_2_mni_0GenericAffine.mat -t warps/t1_2_mni_Warp.nii.gz \
    -o warps/GRE_R2s-WarpedMNI.nii.gz
+
+
+### visualizing
+
+# for visualizing, just the gre
+# dont need 
+ antsApplyTransforms -d 3 -r template/MNI152_T1_1mm_brain.nii.gz -i bet/gre_bet.nii.gz \
+    -t warps/gre_2_t1_rigid_0GenericAffine.mat  -t warps/t1_2_mni_0GenericAffine.mat -t warps/t1_2_mni_1Warp.nii.gz \
+    -o warps/GRE-WarpedMNI.nii.gz
+
+# just for use with afni. without refit cannot see warped overlayed on tempalte
+3drefit -space MNI warps/t1_2_mni_Warped.nii.gz warps/GRE*-WarpedMNI*nii.gz
+
+## inspect: how well did the warps go?
+test -d imgs || mkdir $_
+# t1->mni
+slicer template/MNI152_T1_1mm_brain.nii.gz warps/t1_2_mni_Warped.nii.gz -a imgs/t1_mni.png
+# gre->t1
+slicer input/T1_MPRAGE_ISO_0006.nii.gz warps/gre_2_t1_affine_Warped.nii.gz -a imgs/gre_t1.png
+# gre->mni
+slicer template/MNI152_T1_1mm_brain.nii.gz warps/GRE-WarpedMNI.nii.gz -a imgs/gre_mni.png
