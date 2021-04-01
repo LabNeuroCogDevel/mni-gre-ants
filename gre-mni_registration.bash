@@ -40,16 +40,15 @@ wait
 # combine transforms
 # TODO: confrim warp order produces correct output
 antsApplyTransforms -d 3 -r template/MNI152_T1_1mm_brain.nii.gz -i input/GRE_R2s.nii.gz \
-   -t warps/gre_2_t1_rigid_0GenericAffine.mat -t warps/t1_2_mni_0GenericAffine.mat -t warps/t1_2_mni_Warp.nii.gz \
+   -t warps/t1_2_mni_1Warp.nii.gz -t warps/t1_2_mni_0GenericAffine.mat  -t warps/gre_2_t1_rigid_0GenericAffine.mat \
    -o warps/GRE_R2s-WarpedMNI.nii.gz
 
 
 ### visualizing
 
 # for visualizing, just the gre
-# dont need 
- antsApplyTransforms -d 3 -r template/MNI152_T1_1mm_brain.nii.gz -i bet/gre_bet.nii.gz \
-    -t warps/gre_2_t1_rigid_0GenericAffine.mat  -t warps/t1_2_mni_0GenericAffine.mat -t warps/t1_2_mni_1Warp.nii.gz \
+antsApplyTransforms -d 3 -r template/MNI152_T1_1mm_brain.nii.gz -i bet/gre_bet.nii.gz \
+    -t warps/t1_2_mni_1Warp.nii.gz -t warps/t1_2_mni_0GenericAffine.mat  -t warps/gre_2_t1_rigid_0GenericAffine.mat \
     -o warps/GRE-WarpedMNI.nii.gz
 
 # just for use with afni. without refit cannot see warped overlayed on tempalte
